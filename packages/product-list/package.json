@@ -1,5 +1,5 @@
 {
-  "name": "nav",
+  "name": "product-list",
   "version": "1.0.0",
   "scripts": {
     "build": "npm run build:mf && npm run build:npm",

@@ -1,20 +1,44 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { reduce, pluck, add, map } from 'ramda';
 
 const StyledBasket = styled.div`
-  height: 200px;
+  height: 150px;
   width: 200px;
-  background: blue;
-  color: white;
-  font-size: xx-large;
+  border: 10px solid pink;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
-const Basket = () => {
+const totalPrice = items => {
+    return reduce(
+        add,
+        0,
+        map(parseFloat, pluck('price', items))
+    );
+}
+
+const Basket = ({ items, onClear }) => {
     return (
         <StyledBasket>
-            BASKET!
+            <h3>BASKET</h3>
+            <span>
+                PRODUCT COUNT: {items.length}
+            </span>
+            <span>
+                TOTAL: {Number.parseFloat(totalPrice(items)).toFixed(2)}
+            </span>
+            <button
+                onClick={onClear}
+            >
+                CLEAR
+            </button>
         </StyledBasket>
-    )
+    );
 };
 
 export default Basket;
+

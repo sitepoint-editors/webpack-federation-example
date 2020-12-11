@@ -23,8 +23,6 @@
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
-    "nav": "1.0.0",
-    "basket": "1.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }

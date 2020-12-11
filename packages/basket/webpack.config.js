@@ -1,4 +1,4 @@
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = {
   output: {
@@ -26,15 +26,16 @@ module.exports = {
   },
 
   plugins: [
-    new ModuleFederationPlugin({
-      name: "basket",
-      library: { type: "var", name: "basket" },
-      filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {
-        "./Basket": "./src/Basket",
-      },
-      shared: require("./package.json").dependencies,
-    }),
+      new ModuleFederationPlugin({
+        name: 'basket',
+        library: {
+          type: 'var', name: 'basket'
+        },
+        filename: 'remoteEntry.js',
+        exposes: {
+          './Basket': './src/Basket'
+        },
+        shared: require('./package.json').dependencies
+      })
   ],
 };

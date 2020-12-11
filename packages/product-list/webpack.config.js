@@ -1,4 +1,4 @@
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = {
   output: {
@@ -27,14 +27,15 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "nav",
-      library: { type: "var", name: "nav" },
-      filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {
-        "./Header": "./src/Header",
+      name: 'productList',
+      library: {
+        type: 'var', name: 'productList'
       },
-      shared: require("./package.json").dependencies,
-    }),
+      filename: 'remoteEntry.js',
+      exposes: {
+        './ProductList': './src/ProductList'
+      },
+      shared: require('./package.json').dependencies
+    })
   ],
 };

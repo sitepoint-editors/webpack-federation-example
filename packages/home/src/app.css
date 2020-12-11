@@ -1,0 +1,9 @@
+.app {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-content {
+    display: flex;
+    justify-content: space-between;
+}

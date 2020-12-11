@@ -1,85 +1,43 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
+const Basket = React.lazy(() => import('mf-basket/Basket'))
+const ProductList = React.lazy(() => import('mf-productList/ProductList'))
+
 import "./index.css";
-const FallbackHeader = React.lazy(() => import("nav/build/Header"));
-const Header = React.lazy(() => import("mf-nav/Header"));
-
-const FallbackBasket = React.lazy(() => import("basket/build/Basket"));
-const Basket = React.lazy(() => import("mf-basket/Basket"));
-
-class HeaderWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch() {}
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <React.Suspense fallback={<div>Loading fallback header</div>}>
-          <FallbackHeader />
-        </React.Suspense>
-      );
-    }
-
-    return (
-      <React.Suspense fallback={<div>Header loading</div>}>
-        <Header />
-      </React.Suspense>
-    );
-  }
-}
-
-class BasketWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch() {}
-
-  render() {
-    if (this.state.hasError) {
-      return (
-          <React.Suspense fallback={<div>Loading fallback basket</div>}>
-            <FallbackBasket />
-          </React.Suspense>
-      );
-    }
-
-    return (
-        <React.Suspense fallback={<div>basket loading</div>}>
-          <Basket />
-        </React.Suspense>
-    );
-  }
-}
+import './app.css';
+import './productList.css';
 
 const App = () => {
-    const [showBasket, setShowBasket] = useState(false);
+    const [selected, setSelected] = useState([]);
+
+    const onBuyItem = item => {
+        setSelected(curr => [...curr, item]);
+    };
+
     return (
-        <div>
-            <HeaderWrapper />
-            <div>Hi there, I'm React from React.</div>
-            <button
-                onClick={() => setShowBasket(!showBasket)}
-            >
-                Toggle Basket
-            </button>
-            {
-                showBasket && <BasketWrapper/>
-            }
+        <div className="app">
+            <h1>Pizza Store</h1>
+            <div className="app-content">
+                <section>
+                    <React.Suspense fallback={<div>....loading product list</div>}>
+                        <ProductList
+                            onBuyItem={onBuyItem}
+                        />
+                    </React.Suspense>
+                </section>
+                <section>
+                    {
+                        selected.length > 0 &&
+                        <React.Suspense fallback={<div>....loading basket</div>}>
+                            <Basket
+                                items={selected}
+                                onClear={() => setSelected([])}
+                            />
+                        </React.Suspense>
+                    }
+                </section>
+            </div>
         </div>
     )
 };

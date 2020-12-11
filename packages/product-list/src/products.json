@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Margherita.",
+        "price": "5.50"
+    },
+    {
+        "id": 2,
+        "name": "Pepperoni Pizza",
+        "price": "4.50"
+    },
+    {
+        "id": 3,
+        "name": "BBQ Chicken Pizza",
+        "price": "5.00"
+    }
+]
